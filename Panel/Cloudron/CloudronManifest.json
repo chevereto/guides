@@ -1,0 +1,25 @@
+{
+    "id": "com.chevereto.coudronapp",
+    "title": "Chevereto",
+    "author": "Rodolfo Berrios",
+    "description": "Chevereto custom build on Cloudron",
+    "tagline": "Self-hosted media sharing",
+    "version": "3.20.7",
+    "healthCheckPath": "/",
+    "httpPort": 80,
+    "addons": {
+        "localstorage": {},
+        "mysql": {},
+        "sendmail": {},
+        "recvmail": {}
+    },
+    "manifestVersion": 1,
+    "website": "https://chevereto.com",
+    "contactEmail": "admin@chevereto.com",
+    "icon": "file://logo.svg",
+    "tags": [
+        "image",
+        "sharing"
+    ],
+    "mediaLinks": []
+}
