@@ -1,6 +1,6 @@
 # Ubuntu 18.04 (LEMP)
 
-👏 Author: Stolen from public docs of very well known cloud providers.
+👏 Author: Adapted from public docs of very well known cloud providers.
 
 This guide is for **Ubuntu 18.04.3 (LTS) x64** and it will install Chevereto in a LEMP stack (Linux, NGINX, MySQL and PHP).
 
