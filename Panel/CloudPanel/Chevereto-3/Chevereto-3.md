@@ -14,7 +14,7 @@ In the following example we will setup **[Chevereto](https://chevereto.com/)** u
 
 ### Preparation
 
-You will require to add Chevereto as a CloudPanel application.
+You will require to add **Chevereto as a CloudPanel** application.
 
 1. Go to **Admin Area** and under **Vhost Templates** click on **Add Application**
    1. Application Name: Chevereto
@@ -145,3 +145,13 @@ rm -rf /tmp/*
 ```
 
 5. Open your domain in the browser and go through the **Installation Wizard**.
+
+## Cron Jobs
+
+1. Go to **Cron Jobs** and click on **Add Cron Job**
+2. Tweak the template to your liking (we recommend run every minute)
+3. Take note on the command below
+
+```sh
+php7.4 /home/cloudpanel/htdocs/www.domain.com/cli.php -C cron
+```
