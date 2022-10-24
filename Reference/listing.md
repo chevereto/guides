@@ -147,7 +147,7 @@ Case requirements:
 - Admin only route access
 - Plain output (one url per line)
 
-Sample code:
+#### List all Chevereto V3
 
 Chevereto V3: Create `app/routes/overrides/route.get-user-images.php` with the following contents.
 
@@ -182,6 +182,8 @@ $route = function ($handler) {
     }
 };
 ```
+
+#### List all Chevereto V4
 
 Chevereto V4: Create `app/routes/overrides/get-user-images.php` with the following contents.
 
