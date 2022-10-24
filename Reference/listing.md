@@ -149,26 +149,21 @@ Case requirements:
 
 Sample code:
 
-Create `app/routes/overrides/route.get-user-images.php` with the following contents.
+Chevereto V3: Create `app/routes/overrides/route.get-user-images.php` with the following contents.
 
 ```php
 <?php
 $route = function ($handler) {
     try {
-        // Check access policy
         if (!CHV\Login::isAdmin()) {
             return $handler->issue404();
         }
         $logged_user = CHV\Login::getUser();
-        // Get the username, 0 is the first component index in route
         $username = $handler->request[0];
-        // Get the target user from its username
         $user = CHV\User::getSingle($username, 'username');
-        // Check that the target user exists
         if (!$user) {
             return $handler->issue404();
         }
-        // Actually build the list
         $list = new CHV\Listing;
         $list->setType('images');
         $list->setLimit(0);
@@ -177,24 +172,49 @@ $route = function ($handler) {
         $list->setWhere('image_user_id = :user_id');
         $list->bind(':user_id', $user['id']);
         $list->exec();
-        // Uncomment these if you need to debug
-        G\debug(
-            [
-                // 'query' => $list->debugQuery(),
-                // 'output' => $list->output,
-                // 'output_assoc' => $list->output_assoc,
-            ]
-        );
-        // Force output header, print the data
         header('Content-Type:text/plain');
         foreach ($list->output_assoc as $pos => $item) {
             echo $item['image']['url'] . "\n";
         };
-        // Stop execution once done
         die();
     } catch (Exception $e) {
         G\exception_to_error($e);
     }
+};
+```
+
+Chevereto V4: Create `app/routes/overrides/get-user-images.php` with the following contents.
+
+```php
+<?php
+
+use Chevereto\Legacy\Classes\Listing;
+use Chevereto\Legacy\Classes\Login;
+use Chevereto\Legacy\Classes\User;
+use Chevereto\Legacy\G\Handler;
+
+return function (Handler $handler) {
+    if (!Login::isAdmin()) {
+        return $handler->issueError(404);
+    }
+    $username = $handler->request[0];
+    $user = User::getSingle($username, 'username');
+    if (!$user) {
+        return $handler->issueError(404);
+    }
+    $list = new Listing();
+    $list->setType('images');
+    $list->setLimit(0);
+    $list->setSortType('date');
+    $list->setSortOrder('desc');
+    $list->setWhere('image_user_id = :user_id');
+    $list->bind(':user_id', $user['id']);
+    $list->exec();
+    header('Content-Type:text/plain');
+    foreach ($list->outputAssoc() as $pos => $item) {
+        echo $item['image']['url'] . "\n";
+    }
+    die();
 };
 ```
 
